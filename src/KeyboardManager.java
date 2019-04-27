@@ -13,7 +13,7 @@ public class KeyboardManager implements KeyListener {
 
     public void update()
     {
-        up = keys[KeyEvent.VK_W] || keys[KeyEvent.VK_UP];
+        up = keys[KeyEvent.VK_W] || keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_SPACE];
         down = keys[KeyEvent.VK_S] || keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_A] || keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT];

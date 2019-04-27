@@ -5,7 +5,12 @@ public class Player extends Entity {
 
     private final int DEFAULT_WIDTH = 64,DEFAULT_HEIGHT = 64;
     private float xMove,yMove;
-    private int speed = 3;
+    private int speed = 6;
+    private int gravityScale = 5;
+    private int jumpSpeed = 50;
+    private boolean grounded = false;
+    private boolean jumping = false;
+    private int numberOfFrames = 0;
 
     public Player(Handler handler,float x,float y,int width,int height)
     {
@@ -48,10 +53,6 @@ public class Player extends Entity {
             {
                 x+=xMove;
             }
-            else
-            {
-
-            }
         }
     }
     private void moveY()
@@ -64,15 +65,30 @@ public class Player extends Entity {
                 y+=yMove;
             }
         }
-        else if(yMove > 0)
+        else
         {
-            int yy = (int)(y + yMove + box.height)/Tile.TILE_HEIGHT;
-            if(!collisionWithTile((int)x/Tile.TILE_WIDTH,yy) && !collisionWithTile((int)(x + box.width)/Tile.TILE_WIDTH,yy))
+            int yy = (int)(y + gravityScale + box.height)/Tile.TILE_HEIGHT;
+            if(jumping)
             {
-                y+=yMove;
+                if(numberOfFrames < 4)
+                {
+                    y-=jumpSpeed/4;
+                    numberOfFrames++;
+                }
+                else
+                {
+                    jumping = false;
+                }
+            }
+            else if(!collisionWithTile((int)x/Tile.TILE_WIDTH,yy) && !collisionWithTile((int)(x + box.width)/Tile.TILE_WIDTH,yy))
+            {
+                y+=gravityScale;
+                grounded = false;
             }
             else
             {
+                numberOfFrames = 0;
+                grounded = true;
                 y = yy * Tile.TILE_HEIGHT - box.height - 1;
             }
         }
@@ -90,11 +106,12 @@ public class Player extends Entity {
         yMove = 0;
         if(handler.getKeyboardManager().up)
         {
-            yMove=-speed;
-        }
-        if(handler.getKeyboardManager().down)
-        {
-            yMove=speed;
+            if(grounded)
+            {
+                yMove=-jumpSpeed;
+                jumping = true;
+                grounded = false;
+            }
         }
         if(handler.getKeyboardManager().left)
         {
