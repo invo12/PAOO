@@ -12,9 +12,12 @@ public class Player extends Entity {
     private boolean jumping = false;
     private int numberOfFrames = 0;
 
+    private float initialX,initialY;
     public Player(Handler handler,float x,float y,int width,int height)
     {
         super(handler,x,y,width,height);
+        initialX = x;
+        initialY = y;
     }
 
     @Override
@@ -22,6 +25,7 @@ public class Player extends Entity {
         checkIfDead();
         input();
         move();
+        checkIfDead();
         handler.getCamera().CenterOnPlayer(this);
     }
 
@@ -100,6 +104,11 @@ public class Player extends Entity {
         return handler.getMap().getTile(x,y).isSolid();
     }
 
+    private boolean deathCollisionWithTile(int x,int y)
+    {
+        return handler.getMap().getTile(x,y).isDeath();
+    }
+
     private void input()
     {
         xMove = 0;
@@ -124,8 +133,16 @@ public class Player extends Entity {
     }
     private void checkIfDead()
     {
-        if(y > handler.getHeight())
-            System.out.println("GAME OVER");
+        int yy = (int)(y + gravityScale + box.height)/Tile.TILE_HEIGHT;
+        if(deathCollisionWithTile((int)x/Tile.TILE_WIDTH,yy) || deathCollisionWithTile((int)(x + box.width)/Tile.TILE_WIDTH,yy))
+        {
+            x = initialX;
+            y = initialY;
+            if(State.getState() != null)
+            {
+                State.getState().gameOver();
+            }
+        }
     }
 
     @Override

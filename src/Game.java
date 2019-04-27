@@ -25,6 +25,7 @@ public class Game implements Runnable {
 
     //Handler
     private Handler handler;
+
     public Game(int width,int height)
     {
         this.width = width;
@@ -132,6 +133,15 @@ public class Game implements Runnable {
         {
             e.printStackTrace();
         }
+    }
+    public void gameOver()
+    {
+
+    }
+
+    public void updateScore(int newScore)
+    {
+        handler.getUI().setNumberOfDeaths(newScore);
     }
 
     public KeyboardManager GetKeyboardManager()

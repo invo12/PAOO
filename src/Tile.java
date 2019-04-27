@@ -27,6 +27,7 @@ public class Tile {
     {
         return false;
     }
+    public boolean isDeath(){return false;}
 
     public void update()
     {

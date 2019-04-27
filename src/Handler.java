@@ -2,6 +2,7 @@ public class Handler {
 
     private Game game;
     private Map map;
+    private UI ui;
 
     public Handler(Game game)
     {
@@ -30,7 +31,8 @@ public class Handler {
     {
         this.map = map;
     }
-
+    public void setUI(UI ui){this.ui = ui;}
+    public UI getUI(){return ui;}
     public int getWidth()
     {
         return game.width;

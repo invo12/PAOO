@@ -4,7 +4,7 @@ public class WaterTile extends Tile {
     }
 
     @Override
-    public boolean isSolid()
+    public boolean isDeath()
     {
         return true;
     }

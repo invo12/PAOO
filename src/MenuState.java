@@ -16,4 +16,8 @@ public class MenuState extends State {
     public void render(Graphics g) {
 
     }
+
+    @Override
+    public void gameOver() {
+    }
 }
