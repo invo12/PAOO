@@ -2,9 +2,12 @@ import java.awt.*;
 
 public class MenuState extends State {
 
+
+
     public MenuState(Handler handler)
     {
         super(handler);
+
     }
 
     @Override
@@ -14,6 +17,7 @@ public class MenuState extends State {
 
     @Override
     public void render(Graphics g) {
+        g.drawImage(Assets.menuBackground,0,0,handler.getWidth(),handler.getHeight(),null);
 
     }
 

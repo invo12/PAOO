@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
@@ -38,6 +40,14 @@ public class Game implements Runnable {
         screen = new Screen(width,height);
         screen.getFrame().addKeyListener(keyboardManager);
         Assets.init();
+        screen.getStartButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                screen.getCanvas().setVisible(true);
+                screen.getMenuPanel().setVisible(false);
+                State.setState(gameState);
+            }
+        });
 
         handler = new Handler(this);
         camera = new Camera(handler,0,0);
@@ -53,6 +63,12 @@ public class Game implements Runnable {
         if(State.getState() != null)
         {
             State.getState().update();
+        }
+        if(keyboardManager.escape)
+        {
+            screen.getCanvas().setVisible(false);
+            screen.getMenuPanel().setVisible(true);
+            State.setState(menuState);
         }
     }
 

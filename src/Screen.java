@@ -1,9 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Screen {
+    //game
     private JFrame frame;
-    private Canvas canvas;  //ca sa putem desena imaginile
+    private Canvas canvas;  //ca sa putem desena imagini
+
+    //menu
+    private JPanel menuPanel;
+    private JButton startButton,quitButton;
 
     private String title = "Gioc";
     private int width,height;
@@ -31,6 +38,30 @@ public class Screen {
         canvas.setMinimumSize(new Dimension(width,height));//width x height
         canvas.setFocusable(false);
 
+        menuPanel = new JPanel();
+        menuPanel.setPreferredSize(new Dimension(width,height));
+        menuPanel.setMaximumSize(new Dimension(width,height));
+        menuPanel.setMinimumSize(new Dimension(width,height));
+        menuPanel.setLayout(new GridLayout(2,1));
+
+        startButton = new JButton("START");
+        quitButton = new JButton("QUIT");
+        quitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        startButton.setFocusable(false);
+        startButton.setFocusable(false);
+
+        menuPanel.add(startButton);
+        menuPanel.add(quitButton);
+        menuPanel.setVisible(false);
+        menuPanel.setFocusable(false);
+
+        frame.setLayout(new CardLayout());
+        frame.add(menuPanel);
         frame.add(canvas);
         frame.pack();       //da resize la fereastra ca sa putem vedea tot canvasul
     }
@@ -47,4 +78,6 @@ public class Screen {
     {
         return frame;
     }
+    public JPanel getMenuPanel(){ return menuPanel;}
+    public JButton getStartButton(){return startButton;}
 }

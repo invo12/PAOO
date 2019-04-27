@@ -5,6 +5,8 @@ public class KeyboardManager implements KeyListener {
 
     private boolean[] keys;
     public boolean up,down,left,right;
+    public boolean escape;
+    public boolean enter;
 
     public KeyboardManager()
     {
@@ -17,6 +19,8 @@ public class KeyboardManager implements KeyListener {
         down = keys[KeyEvent.VK_S] || keys[KeyEvent.VK_DOWN];
         left = keys[KeyEvent.VK_A] || keys[KeyEvent.VK_LEFT];
         right = keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT];
+        escape = keys[KeyEvent.VK_ESCAPE];
+        enter = keys[KeyEvent.VK_ENTER];
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -24,7 +28,8 @@ public class KeyboardManager implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e)
+    {
         keys[e.getKeyCode()] = true;
     }
 
