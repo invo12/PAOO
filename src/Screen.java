@@ -1,4 +1,7 @@
+import sun.plugin2.util.ColorUtil;
+
 import javax.swing.*;
+import javax.swing.plaf.basic.DefaultMenuLayout;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,8 +12,9 @@ public class Screen {
     private Canvas canvas;  //ca sa putem desena imagini
 
     //menu
-    private JPanel menuPanel;
-    private JButton startButton,quitButton;
+    private JPanel menuPanel,containerPanel;
+    private JButton startButton,optionsButton,quitButton;
+    private JLabel gameTitle;
 
     private String title = "Gioc";
     private int width,height;
@@ -39,22 +43,57 @@ public class Screen {
         canvas.setFocusable(false);
         canvas.setVisible(false);
 
+        gameTitle = new JLabel("Patratel");
+        startButton = new JButton("START");
+        optionsButton = new JButton("OPTIONS");
+        quitButton = new JButton("QUIT");
+
         menuPanel = new JPanel();
         menuPanel.setPreferredSize(new Dimension(width,height));
         menuPanel.setMaximumSize(new Dimension(width,height));
         menuPanel.setMinimumSize(new Dimension(width,height));
-        menuPanel.setLayout(new GridLayout(2,1));
+        menuPanel.setBackground(Color.BLACK);
+        menuPanel.setLayout(new GridBagLayout());
 
-        startButton = new JButton("START");
-        quitButton = new JButton("QUIT");
+        containerPanel = new JPanel();
+        containerPanel.setPreferredSize(new Dimension(width/2,height));
+        containerPanel.setBackground(Color.BLACK);
+        containerPanel.setAlignmentX(JPanel.CENTER_ALIGNMENT);
+        containerPanel.setFocusable(false);
+        containerPanel.setLayout(null);
+
+        int containerWidth = containerPanel.getPreferredSize().width;
+        int containerHeight = containerPanel.getPreferredSize().height;
+
+        containerPanel.add(gameTitle);
+        gameTitle.setFont(new Font("Courier New",Font.BOLD,50));
+        gameTitle.setForeground(Color.white);
+        gameTitle.setBounds(80,height/8,containerWidth,50);
+        gameTitle.setAlignmentX(JLabel.CENTER);
+
+        containerPanel.add(startButton);
+        startButton.setBackground(Color.white);
+        startButton.setPressedIcon(null);
+        startButton.setBounds(containerWidth/8,containerHeight/4,3*containerWidth/4,100);
         startButton.setFocusable(false);
+
+        containerPanel.add(optionsButton);
+        optionsButton.setBackground(Color.white);
+        optionsButton.setBounds(containerWidth/8,containerHeight/2,3*containerWidth/4,100);
+        optionsButton.setFocusable(false);
+
+        containerPanel.add(quitButton);
+        quitButton .setBackground(Color.white);
+        quitButton.setBounds(containerWidth/8,3*containerHeight/4,3*containerWidth/4,100);
         quitButton.setFocusable(false);
 
-        menuPanel.add(startButton);
-        menuPanel.add(quitButton);
+        //containerPanel.add(startButton);
+        //containerPanel.add(quitButton);
+        menuPanel.add(containerPanel);
         menuPanel.setVisible(true);
         menuPanel.setFocusable(false);
 
+        frame.setResizable(false);
         frame.setLayout(new CardLayout());
         frame.add(menuPanel);
         frame.add(canvas);
