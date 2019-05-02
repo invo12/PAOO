@@ -18,6 +18,7 @@ public class Game implements Runnable {
     //States
     private State gameState;
     private State menuState;
+    private State finishState;
 
     //Input
     private KeyboardManager keyboardManager;
@@ -48,13 +49,20 @@ public class Game implements Runnable {
                 State.setState(gameState);
             }
         });
+        screen.getQuitButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                running = false;
+            }
+        });
 
         handler = new Handler(this);
         camera = new Camera(handler,0,0);
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        State.setState(gameState);
+        finishState = new FinishState(handler);
+        State.setState(menuState);
     }
 
     private void update()   //logica jocului
@@ -125,6 +133,7 @@ public class Game implements Runnable {
             }
         }
         stop();
+        System.exit(0);
     }
 
     public synchronized void start()    //cand pornesti sau opresti threaduri folosesti synchronized ca sa te asiguri ca nu pierzi nimic in proces
@@ -159,7 +168,7 @@ public class Game implements Runnable {
     {
         handler.getUI().setNumberOfDeaths(newScore);
     }
-
+    public void FinishTheGame(){State.setState(finishState);}
     public KeyboardManager GetKeyboardManager()
     {
         return keyboardManager;

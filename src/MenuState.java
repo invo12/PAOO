@@ -2,12 +2,9 @@ import java.awt.*;
 
 public class MenuState extends State {
 
-
-
     public MenuState(Handler handler)
     {
         super(handler);
-
     }
 
     @Override
@@ -23,5 +20,10 @@ public class MenuState extends State {
 
     @Override
     public void gameOver() {
+    }
+
+    @Override
+    public void nextLevel()
+    {
     }
 }

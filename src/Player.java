@@ -13,6 +13,7 @@ public class Player extends Entity {
     private int numberOfFrames = 0;
 
     private float initialX,initialY;
+
     public Player(Handler handler,float x,float y,int width,int height)
     {
         super(handler,x,y,width,height);
@@ -23,6 +24,7 @@ public class Player extends Entity {
     @Override
     public void update() {
         checkIfDead();
+        checkIfFinish();
         input();
         move();
         checkIfDead();
@@ -108,6 +110,10 @@ public class Player extends Entity {
     {
         return handler.getMap().getTile(x,y).isDeath();
     }
+    private boolean finishCollisionWithTile(int x,int y)
+    {
+        return handler.getMap().getTile(x,y).isFinish();
+    }
 
     private void input()
     {
@@ -141,6 +147,32 @@ public class Player extends Entity {
             if(State.getState() != null)
             {
                 State.getState().gameOver();
+            }
+        }
+    }
+
+    private void checkIfFinish()
+    {
+        if(xMove > 0)
+        {
+            int xx = (int)(x + xMove + box.width) / Tile.TILE_WIDTH;
+
+            if(finishCollisionWithTile(xx,(int)y/Tile.TILE_HEIGHT) || finishCollisionWithTile(xx,(int)(y + box.height) / Tile.TILE_HEIGHT))
+            {
+                State.getState().nextLevel();
+                this.x = initialX;
+                this.y = initialY;
+            }
+        }
+        else if(xMove < 0)
+        {
+            int xx = (int)(x + xMove) / Tile.TILE_WIDTH;
+
+            if(finishCollisionWithTile(xx,(int)y/Tile.TILE_HEIGHT) && finishCollisionWithTile(xx,(int)(y + box.height) / Tile.TILE_HEIGHT))
+            {
+                State.getState().nextLevel();
+                this.x = initialX;
+                this.y = initialY;
             }
         }
     }

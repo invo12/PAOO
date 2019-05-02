@@ -8,7 +8,7 @@ public class Tile {
     public static Tile platformTile = new PlatformTile(0);
     public static Tile backgroundTile = new BackgroundTile(1);
     public static Tile waterTile = new WaterTile(2);
-
+    public static Tile finishTile = new FinishTile(3);
 
     public static final int TILE_WIDTH = 64,TILE_HEIGHT = 64;
 
@@ -28,7 +28,7 @@ public class Tile {
         return false;
     }
     public boolean isDeath(){return false;}
-
+    public boolean isFinish(){return false;}
     public void update()
     {
 

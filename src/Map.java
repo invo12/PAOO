@@ -43,7 +43,7 @@ public class Map {
         return t;
     }
 
-    private void loadWorld(String path)
+    public void loadWorld(String path)
     {
         String file = Utils.loadFile(path);
         String[] tokens = file.split("\\s+");

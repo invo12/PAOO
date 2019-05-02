@@ -37,6 +37,7 @@ public class Screen {
         canvas.setMaximumSize(new Dimension(width,height));//va avea mereu marimea
         canvas.setMinimumSize(new Dimension(width,height));//width x height
         canvas.setFocusable(false);
+        canvas.setVisible(false);
 
         menuPanel = new JPanel();
         menuPanel.setPreferredSize(new Dimension(width,height));
@@ -46,18 +47,12 @@ public class Screen {
 
         startButton = new JButton("START");
         quitButton = new JButton("QUIT");
-        quitButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
         startButton.setFocusable(false);
-        startButton.setFocusable(false);
+        quitButton.setFocusable(false);
 
         menuPanel.add(startButton);
         menuPanel.add(quitButton);
-        menuPanel.setVisible(false);
+        menuPanel.setVisible(true);
         menuPanel.setFocusable(false);
 
         frame.setLayout(new CardLayout());
@@ -80,4 +75,5 @@ public class Screen {
     }
     public JPanel getMenuPanel(){ return menuPanel;}
     public JButton getStartButton(){return startButton;}
+    public JButton getQuitButton(){return quitButton;}
 }

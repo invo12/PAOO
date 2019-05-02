@@ -6,7 +6,8 @@ public class GameState extends State{
     private Map map;
     private UI ui;
 
-    int numberOfDeaths = 0;
+    private int currentLevel;
+    private final int numberOfLevels = 2;
 
     public GameState(Handler handler)
     {
@@ -16,6 +17,7 @@ public class GameState extends State{
         ui = new UI(0);
         handler.setMap(map);
         handler.setUI(ui);
+        currentLevel = 1;
     }
 
     @Override
@@ -31,9 +33,24 @@ public class GameState extends State{
         player.render(g);
         ui.render(g);
     }
+    @Override
     public void gameOver()
     {
-        numberOfDeaths++;
-        handler.getGame().updateScore(numberOfDeaths);
+        Assets.numberOfDeaths++;
+        handler.getGame().updateScore(Assets.numberOfDeaths);
+    }
+    @Override
+    public void nextLevel()
+    {
+        currentLevel++;
+        if(currentLevel > numberOfLevels)
+        {
+            currentLevel = numberOfLevels - 1;
+            handler.getGame().FinishTheGame();
+        }
+        else
+        {
+            handler.getMap().loadWorld("src/Resources/level" + currentLevel + ".txt");
+        }
     }
 }
