@@ -16,7 +16,7 @@ public class FinishState extends State {
     public void render(Graphics g) {
         g.drawImage(Assets.finishBackground,0,0,handler.getWidth(),handler.getHeight(),null);
         g.setFont(new Font("TimesRoman", Font.PLAIN, 40));
-        g.drawString("AI CASTIGAT CU " + Assets.numberOfDeaths +" MORTI",handler.getWidth()/5,handler.getHeight()/2);
+        g.drawString("AI CASTIGAT CU " + GameVariables.numberOfDeaths +" MORTI",handler.getWidth()/5,handler.getHeight()/2);
     }
 
     @Override

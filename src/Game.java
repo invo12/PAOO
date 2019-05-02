@@ -112,10 +112,13 @@ public class Game implements Runnable {
         long lastTime = System.nanoTime();
         long timer = 0;
         int frames = 0;
+        long elapsedTime;
+        long frameDurationMilis = 16;
 
         while(running)
         {
             now = System.nanoTime();
+            elapsedTime = (now - lastTime);
             delta += (now - lastTime)/timePerUpdate;
             timer += now - lastTime;
             lastTime = now;
@@ -130,6 +133,13 @@ public class Game implements Runnable {
                 screen.setTitle(" " + frames + " fps");
                 timer = 0;
                 frames = 0;
+            }
+            try
+            {
+                Thread.sleep(0,300);
+            }catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
         }
         stop();

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Gioc:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gioc_jar</output-path>
+    <root id="archive" name="Gioc.jar">
+      <element id="module-output" name="Gioc" />
+    </root>
+  </artifact>
+</component>

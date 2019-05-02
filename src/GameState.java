@@ -36,8 +36,8 @@ public class GameState extends State{
     @Override
     public void gameOver()
     {
-        Assets.numberOfDeaths++;
-        handler.getGame().updateScore(Assets.numberOfDeaths);
+        GameVariables.numberOfDeaths++;
+        handler.getGame().updateScore(GameVariables.numberOfDeaths);
     }
     @Override
     public void nextLevel()

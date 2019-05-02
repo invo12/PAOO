@@ -7,7 +7,7 @@ public class Assets {
     public static BufferedImage platform,background,water,player,finish;
     public static BufferedImage menuBackground;
     public static BufferedImage finishBackground;
-    public static int numberOfDeaths;
+
     public static void init()
     {
         SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("Resources/spriteSheet.png"));
