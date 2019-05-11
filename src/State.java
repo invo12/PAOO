@@ -25,4 +25,5 @@ public abstract class State {
     public abstract void render(Graphics g);
     public abstract void gameOver();
     public abstract void nextLevel();
+    public Player getPlayer(){return null;};
 }

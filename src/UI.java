@@ -1,9 +1,8 @@
 import java.awt.*;
-
+import javax.swing.JButton;
 public class UI {
 
     private String scoreString;
-
     public UI(int numberOfDeaths)
     {
         setNumberOfDeaths(numberOfDeaths);

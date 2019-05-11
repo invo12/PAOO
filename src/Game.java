@@ -29,6 +29,8 @@ public class Game implements Runnable {
     //Handler
     private Handler handler;
 
+    //saver
+    private SaveInfo loadInfo;
     public Game(int width,int height)
     {
         this.width = width;
@@ -44,15 +46,19 @@ public class Game implements Runnable {
         screen.getStartButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                screen.getCanvas().setVisible(true);
-                screen.getMenuPanel().setVisible(false);
-                State.setState(gameState);
+                newGame();
             }
         });
         screen.getQuitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 running = false;
+            }
+        });
+        screen.getContinueButton().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadGame();
             }
         });
 
@@ -77,6 +83,14 @@ public class Game implements Runnable {
             screen.getCanvas().setVisible(false);
             screen.getMenuPanel().setVisible(true);
             State.setState(menuState);
+        }
+        if(keyboardManager.save)
+        {
+            if(State.getState() == gameState)
+            {
+                System.out.println("Pressed i");
+                saveGame();
+            }
         }
     }
 
@@ -124,22 +138,15 @@ public class Game implements Runnable {
             lastTime = now;
             if(delta >= 1) {
                 update();
-                render();
                 delta--;
-                frames++;
              }
+            render();
+            frames++;
             if(timer >= 1000000000)
             {
                 screen.setTitle(" " + frames + " fps");
                 timer = 0;
                 frames = 0;
-            }
-            try
-            {
-                Thread.sleep(0,300);
-            }catch (InterruptedException e)
-            {
-                e.printStackTrace();
             }
         }
         stop();
@@ -186,6 +193,42 @@ public class Game implements Runnable {
     public Camera GetCamera()
     {
         return camera;
+    }
+    private void switchToGameView()
+    {
+        screen.getCanvas().setVisible(true);
+        screen.getMenuPanel().setVisible(false);
+        State.setState(gameState);
+    }
+    private void newGame()
+    {
+        loadInfo = Loader.Load();
+        gameState.getPlayer().setX(100);
+        gameState.getPlayer().setY(100);
+        handler.getMap().loadWorld("src/Resources/level1.txt");
+        GameVariables.currentLevel = 1;
+        updateScore(0);
+        GameVariables.numberOfDeaths = 0;
+        switchToGameView();
+    }
+    private void saveGame()
+    {
+        loadInfo.playerX = (int)gameState.getPlayer().getX();
+        loadInfo.playerY = (int)gameState.getPlayer().getY();
+        loadInfo.currentLevel = GameVariables.currentLevel;
+        loadInfo.numberOfDeaths = GameVariables.numberOfDeaths;
+        Loader.Save(loadInfo);
+    }
+    private void loadGame()
+    {
+        loadInfo = Loader.Load();
+        gameState.getPlayer().setX(loadInfo.playerX);
+        gameState.getPlayer().setY(loadInfo.playerY);
+        handler.getMap().loadWorld("src/Resources/level" + loadInfo.currentLevel + ".txt");
+        GameVariables.currentLevel = loadInfo.currentLevel;
+        updateScore(loadInfo.numberOfDeaths);
+        GameVariables.numberOfDeaths = loadInfo.numberOfDeaths;
+        switchToGameView();
     }
 }
 //drawRect - deseneaza un dreptunghi gol

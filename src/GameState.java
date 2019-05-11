@@ -42,15 +42,19 @@ public class GameState extends State{
     @Override
     public void nextLevel()
     {
-        currentLevel++;
+        currentLevel = ++GameVariables.currentLevel;
         if(currentLevel > numberOfLevels)
         {
-            currentLevel = numberOfLevels - 1;
+            GameVariables.currentLevel = GameVariables.currentLevel - 1;
             handler.getGame().FinishTheGame();
         }
         else
         {
             handler.getMap().loadWorld("src/Resources/level" + currentLevel + ".txt");
         }
+    }
+    public Player getPlayer()
+    {
+        return player;
     }
 }

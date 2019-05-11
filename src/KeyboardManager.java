@@ -7,6 +7,7 @@ public class KeyboardManager implements KeyListener {
     public boolean up,down,left,right;
     public boolean escape;
     public boolean enter;
+    public boolean save;
 
     public KeyboardManager()
     {
@@ -21,6 +22,7 @@ public class KeyboardManager implements KeyListener {
         right = keys[KeyEvent.VK_D] || keys[KeyEvent.VK_RIGHT];
         escape = keys[KeyEvent.VK_ESCAPE];
         enter = keys[KeyEvent.VK_ENTER];
+        save = keys[KeyEvent.VK_I];
     }
     @Override
     public void keyTyped(KeyEvent e) {

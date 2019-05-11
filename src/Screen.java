@@ -13,7 +13,7 @@ public class Screen {
 
     //menu
     private JPanel menuPanel,containerPanel;
-    private JButton startButton,optionsButton,quitButton;
+    private JButton startButton,continueButton,quitButton;
     private JLabel gameTitle;
 
     private String title = "Gioc";
@@ -45,7 +45,7 @@ public class Screen {
 
         gameTitle = new JLabel("Patratel");
         startButton = new JButton("START");
-        optionsButton = new JButton("OPTIONS");
+        continueButton = new JButton("CONTINUE");
         quitButton = new JButton("QUIT");
 
         menuPanel = new JPanel();
@@ -77,10 +77,10 @@ public class Screen {
         startButton.setBounds(containerWidth/8,containerHeight/4,3*containerWidth/4,100);
         startButton.setFocusable(false);
 
-        containerPanel.add(optionsButton);
-        optionsButton.setBackground(Color.white);
-        optionsButton.setBounds(containerWidth/8,containerHeight/2,3*containerWidth/4,100);
-        optionsButton.setFocusable(false);
+        containerPanel.add(continueButton);
+        continueButton.setBackground(Color.white);
+        continueButton.setBounds(containerWidth/8,containerHeight/2,3*containerWidth/4,100);
+        continueButton.setFocusable(false);
 
         containerPanel.add(quitButton);
         quitButton .setBackground(Color.white);
@@ -114,5 +114,6 @@ public class Screen {
     }
     public JPanel getMenuPanel(){ return menuPanel;}
     public JButton getStartButton(){return startButton;}
+    public JButton getContinueButton(){return continueButton;}
     public JButton getQuitButton(){return quitButton;}
 }
